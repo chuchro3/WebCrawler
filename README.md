@@ -1,4 +1,18 @@
 # WebCrawler
+OVERVIEW:
+<br />
+This is a web crawler intended to scrape job postings given a workday job postings URL. The filed are stored by job posting ID, and contain a json with a detailed description of the posting from the given sub-urls, as well as notable labels from the original posting description containing info like job title, location, posted date.
+<br /><br />
+
+
+CONTENTS:
+<br />
+- crawler.py
+<br /> main logic for scraping workday job postings, as well as starting the main program
+- util.py
+<br />  utility functions used by the crawler. not crawler dependent
+
+<br /><br />
 USAGE:      python3 crawler.py <options>
 EXAMPLES:   
 - (1) python3 crawler.py -u "https://mastercard.wd1.myworkdayjobs.com/CorporateCareers" -d "./mastercard"
