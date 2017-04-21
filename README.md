@@ -2,11 +2,11 @@
 USAGE:      python3 crawler.py <options>
 EXAMPLES:   
 - (1) python3 crawler.py -u "https://mastercard.wd1.myworkdayjobs.com/CorporateCareers" -d "./mastercard"
-retrieves all job postings for mastercard and saves them under the local directory 'mastercard'
+<br /> retrieves all job postings for mastercard and saves them under the local directory 'mastercard'
 - (2) python3 crawler.py -u "https://symantec.wd1.myworkdayjobs.com/careers" -d "./symantec"
-retrieve all job posting for symantec
+<br /> retrieve all job postings for symantec
 - (3) python3 crawler.py -u "https://pvh.wd1.myworkdayjobs.com/PVH_Careers" -d "./pvh" -t 8 --verbose
-\n retrieve all job postings for PVH, using 8 parallel threads and a verbose output
+<br /> retrieve all job postings for PVH, using 8 parallel threads and a verbose output
 
 
 Options:
