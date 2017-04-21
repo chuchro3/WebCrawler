@@ -2,12 +2,24 @@ from multiprocessing import Process, Array
 import sys
 import util
 
+class JobPosting(object):
+    '''
+    Holds basic information for each job posting
+    '''
+    def __init__(self, post, base_url):
+        self.ID = post['id']
+        
+        #we can extract generally useful information from 'text' keys
+        labels = list(util.extract_all_keys(post, 'text'))
+        self.info = {'labels': labels}
+
+        self.url = base_url + post['title']['commandLink']
+
 def get_job_postings(main_link, dest_dir, thread_count, verbose):
 
     postings_page_dic = util.get_request_to_dic(main_link, verbose)
 
     #find the pagination end point
-    #end_points = postings_page_dic['body']['children'][1]['endPoints']
     end_points = util.extract_key(postings_page_dic, 'endPoints')
     base_url = main_link.split('.com')[0] + '.com'
     pagination_end_point = base_url
@@ -25,7 +37,6 @@ def get_job_postings(main_link, dest_dir, thread_count, verbose):
     while True:
 
         #attempt to retrieve list of job postings from json response
-        #postings = postings_page_dic['body']['children'][1]['children'][0]
         postings_list = util.extract_key(postings_page_dic, 'listItems')
         if postings_list is None:
             break
@@ -76,18 +87,6 @@ def get_job_description(job_postings, start, end, dest_dir, verbose=False):
 
 
 
-class JobPosting(object):
-    '''
-    Holds basic information for each job posting
-    '''
-    def __init__(self, post, base_url):
-        self.ID = post['id']
-        
-        #we can extract generally useful information from 'text' keys
-        labels = list(util.extract_all_keys(post, 'text'))
-        self.info = {'labels': labels}
-
-        self.url = base_url + post['title']['commandLink']
 
 def read_command(argv):
     """

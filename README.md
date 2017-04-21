@@ -2,6 +2,11 @@
 OVERVIEW:
 <br />
 This is a web crawler intended to scrape job postings given a workday job postings URL. The filed are stored by job posting ID, and contain a json with a detailed description of the posting from the given sub-urls, as well as notable labels from the original posting description containing info like job title, location, posted date.
+<br />
+Once we get all job URLs on the first page, retrieving the details of each job posting from branching URLs can be done in parallel (see options below).
+<br />
+The crawler has been successfully tested with 3 different workday job posting websites. It should readily expand to more!
+
 <br /><br />
 
 

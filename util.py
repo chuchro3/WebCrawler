@@ -1,4 +1,4 @@
-from urllib.request import Request, urlopen
+from urllib.request import Request, urlopen, HTTPError
 import os
 import json
 
@@ -67,8 +67,13 @@ def get_request_to_dic(link, verbose=False):
 
     if verbose:
         print(link)
-    raw_page = urlopen(req).read().decode()
-    page_dic = json.loads(raw_page)
+    try:
+        raw_page = urlopen(req).read().decode()
+        page_dic = json.loads(raw_page)
+    except HTTPError as err:
+        if verbose:
+            print("HTTPError", err.code)
+            page_dic = {}
     return page_dic
 
 
