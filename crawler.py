@@ -79,12 +79,23 @@ def get_job_description(job_postings, start, end, dest_dir, verbose=False):
     for i in range(start, end):
         job_posting = job_postings[i]
         job_page_dic = util.get_request_to_dic(job_posting.url, verbose)
-        description = util.extract_key(job_page_dic, 'description')
+
+        about_us = util.extract_adjacent(job_page_dic, 'richTextArea.siteInfo.aboutUs', 'text')
+        rich_description = util.extract_adjacent(job_page_dic, 'richTextArea.jobPosting.jobDescription', 'text')
+        job_type = util.extract_adjacent(job_page_dic, 'labeledImage.JOB_TYPE', 'imageLabel')
+        posted_date = util.extract_adjacent(job_page_dic, 'labeledImage.POSTED_DATE', 'imageLabel')
+        location = util.extract_adjacent(job_page_dic, 'labeledImage.LOCATION', 'imageLabel')
+
         job_info = job_posting.info
-        job_info['description'] = description
+        job_info['id'] = job_posting.ID
+        job_info['title'] = job_page_dic['openGraphAttributes']['title']
+        job_info['job_type'] = job_type
+        job_info['location'] = location
+        job_info['posted_date'] = posted_date
+        job_info['rich_description'] = rich_description 
+        job_info['about_us'] = about_us 
+
         util.write_to_file(job_posting.ID, job_info, dest_dir)
-
-
 
 
 

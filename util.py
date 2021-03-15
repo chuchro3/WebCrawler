@@ -28,6 +28,22 @@ def extract_key(elem, key):
                 return item
     return None
 
+def extract_adjacent(elem, key, target):
+    if isinstance(elem, dict):
+        if 'ecid' in elem and key == elem['ecid']:
+            return elem[target]
+        for k in elem:
+            item = extract_adjacent(elem[k], key, target)
+            if item is not None:
+                return item
+    elif isinstance(elem, list):
+        for k in elem:
+            item = extract_adjacent(k, key, target)
+            if item is not None:
+                return item
+    return None
+
+
 
 def extract_all_keys(elem, key):
     '''
