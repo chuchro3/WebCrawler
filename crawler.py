@@ -11,7 +11,7 @@ class JobPosting(object):
         
         #we can extract generally useful information from 'text' keys
         labels = list(util.extract_all_keys(post, 'text'))
-        self.info = {'labels': labels}
+        self.info = {}
 
         self.url = base_url + post['title']['commandLink']
 
@@ -85,9 +85,11 @@ def get_job_description(job_postings, start, end, dest_dir, verbose=False):
         job_type = util.extract_adjacent(job_page_dic, 'labeledImage.JOB_TYPE', 'imageLabel')
         posted_date = util.extract_adjacent(job_page_dic, 'labeledImage.POSTED_DATE', 'imageLabel')
         location = util.extract_adjacent(job_page_dic, 'labeledImage.LOCATION', 'imageLabel')
+        req_id = util.extract_adjacent(job_page_dic, 'labeledImage.JOB_REQ', 'imageLabel')
 
         job_info = job_posting.info
         job_info['id'] = job_posting.ID
+        job_info['req_id'] = req_id
         job_info['title'] = job_page_dic['openGraphAttributes']['title']
         job_info['job_type'] = job_type
         job_info['location'] = location
